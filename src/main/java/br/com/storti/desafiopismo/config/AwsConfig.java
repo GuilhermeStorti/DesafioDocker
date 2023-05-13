@@ -1,6 +1,7 @@
 package br.com.storti.desafiopismo.config;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sqs.AmazonSQS;
@@ -20,7 +21,7 @@ public class AwsConfig {
 
     @Value("${aws.config.access_key}")
     private String secretKey;
-    @Bean
+
     public AWSCredentials awsCredentials() {
         return new BasicAWSCredentials(accessKey, secretKey);
     }
@@ -28,6 +29,7 @@ public class AwsConfig {
     @Bean
     public AmazonSQSAsync amazonSQSAsync() {
         AmazonSQSAsync sqsAsync = AmazonSQSAsyncClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials()))
                 .withRegion(Regions.US_EAST_1)
                 .build();
         return new AmazonSQSBufferedAsyncClient(sqsAsync);
@@ -36,7 +38,9 @@ public class AwsConfig {
 
     @Bean
     public AmazonSQS amazonSQS() {
-        return AmazonSQSClientBuilder.standard().withRegion(Regions.US_EAST_1)
+        return AmazonSQSClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials()))
+                .withRegion(Regions.US_EAST_1)
                 .build();
     }
 }
