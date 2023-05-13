@@ -29,6 +29,9 @@ dependencies {
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
 
+    implementation 'org.springframework.cloud:spring-cloud-aws-messaging:2.2.5.RELEASE'
+    implementation 'org.springframework:spring-messaging:5.2.24.RELEASE'
+
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
