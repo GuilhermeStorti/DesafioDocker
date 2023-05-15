@@ -1,10 +1,10 @@
 package br.com.storti.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import br.com.storti.enums.AccountStatusEnum;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -12,9 +12,17 @@ import lombok.Data;
 public class AccountModel extends BaseModel {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_account")
     private Long id;
 
     @Column(name = "document_number")
     private String documentNumber;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private AccountStatusEnum status;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private List<TransactionModel> transactions;
 }

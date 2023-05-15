@@ -14,6 +14,12 @@ bootJar {
     enabled = false
 }
 
+compileJava {
+    options.compilerArgs += [
+            '-Amapstruct.defaultComponentModel=spring'
+    ]
+}
+
 subprojects {
 
     apply plugin: 'org.springframework.boot'
@@ -34,9 +40,18 @@ subprojects {
         implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.6'
         implementation 'org.flywaydb:flyway-core:9.17.0'
 
+        implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+        implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
         compileOnly 'org.projectlombok:lombok'
+
+        implementation "org.mapstruct:mapstruct:1.5.5.Final"
+        implementation "org.mapstruct:mapstruct-processor:1.5.5.Final"
+        implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
+        annotationProcessor "org.mapstruct:mapstruct-processor:1.5.5.Final", "org.projectlombok:lombok", 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
         runtimeOnly 'org.postgresql:postgresql'
-        annotationProcessor 'org.projectlombok:lombok'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
 }
@@ -53,6 +68,7 @@ project(':core') {
         implementation 'org.springframework:spring-messaging:5.2.24.RELEASE'
 
         implementation 'org.springframework.boot:spring-boot-starter-web'
+
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'

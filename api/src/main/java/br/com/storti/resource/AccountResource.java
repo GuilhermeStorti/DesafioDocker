@@ -1,7 +1,8 @@
 package br.com.storti.resource;
 
-import br.com.storti.model.AccountModel;
 import br.com.storti.service.AccountService;
+import dto.AccountCreateRequestDTO;
+import dto.AccountCreateResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,10 @@ public class AccountResource {
     private final AccountService accountService;
 
     @PostMapping
-    public ResponseEntity<?> saveAccount(@RequestBody AccountModel accountModel) {
+    public ResponseEntity<AccountCreateResponseDTO> createAccount(@RequestBody AccountCreateRequestDTO account) {
 
-        return ResponseEntity.ok(accountService.save(accountModel));
+        log.info("M createAccount, account {}", account);
+
+        return ResponseEntity.ok(accountService.create(account));
     }
 }
