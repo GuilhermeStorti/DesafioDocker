@@ -2,3 +2,6 @@
 /build/
 .idea
 /docker/volume/
+/core/build/
+/api/build/
+/async/build/

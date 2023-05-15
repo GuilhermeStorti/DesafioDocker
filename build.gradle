@@ -1,43 +1,123 @@
 plugins {
     id 'java'
+    id 'groovy'
     id 'org.springframework.boot' version '3.0.6'
     id 'io.spring.dependency-management' version '1.1.0'
     id 'org.flywaydb.flyway' version '9.17.0'
-}
-
-group = 'br.com.storti'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
 }
 
 repositories {
     mavenCentral()
 }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.springframework.boot:spring-boot-starter-web:3.0.6'
-
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.0.6'
-    implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.6'
-    implementation 'org.flywaydb:flyway-core:9.17.0'
-
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
-
-    implementation 'org.springframework.cloud:spring-cloud-aws-messaging:2.2.5.RELEASE'
-    implementation 'org.springframework:spring-messaging:5.2.24.RELEASE'
-
-    compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'org.postgresql:postgresql'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+bootJar {
+    enabled = false
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
+subprojects {
+
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'application'
+    apply plugin: 'java'
+
+    sourceCompatibility = 17
+    targetCompatibility = 17
+
+    group = 'br.com.storti'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '17'
+
+    dependencies {
+
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.0.6'
+        implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.6'
+        implementation 'org.flywaydb:flyway-core:9.17.0'
+
+        compileOnly 'org.projectlombok:lombok'
+        runtimeOnly 'org.postgresql:postgresql'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+}
+
+project(':core') {
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+
+        implementation 'org.springframework.cloud:spring-cloud-aws-messaging:2.2.5.RELEASE'
+        implementation 'org.springframework:spring-messaging:5.2.24.RELEASE'
+
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+}
+
+project(':api') {
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-web:3.0.6'
+
+        implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+
+        implementation 'org.springframework.cloud:spring-cloud-aws-messaging:2.2.5.RELEASE'
+        implementation 'org.springframework:spring-messaging:5.2.24.RELEASE'
+
+        implementation project(':core')
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    mainClassName = 'br.com.storti.App'
+}
+
+project(':async') {
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+
+        implementation 'org.springframework.cloud:spring-cloud-aws-messaging:2.2.5.RELEASE'
+        implementation 'org.springframework:spring-messaging:5.2.24.RELEASE'
+
+        implementation project(':core')
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    mainClassName = 'br.com.storti.App'
 }
