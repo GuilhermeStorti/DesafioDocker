@@ -1,4 +1,4 @@
-package br.com.storti.desafiopismo.config;
+package br.com.storti.config;
 
 import com.amazonaws.services.sqs.AmazonSQSAsync;
 import com.fasterxml.jackson.databind.DeserializationFeature;

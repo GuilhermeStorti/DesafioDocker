@@ -1,13 +1,12 @@
-package br.com.storti.desafiopismo;
+package br.com.storti;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class DesafioPismoApplication {
+@SpringBootApplication()
+public class ApiApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(DesafioPismoApplication.class, args);
+        SpringApplication.run(ApiApp.class, args);
     }
-
 }

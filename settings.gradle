@@ -1,1 +1,5 @@
 rootProject.name = 'DesafioPismo'
+include 'api'
+include 'async'
+include 'core'
+

@@ -1,6 +1,6 @@
-package br.com.storti.desafiopismo.resource;
+package br.com.storti.resource;
 
-import br.com.storti.desafiopismo.service.AmazonSQSService;
+import br.com.storti.service.AmazonSQSService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;

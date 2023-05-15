@@ -1,4 +1,4 @@
-package br.com.storti.desafiopismo.service;
+package br.com.storti.service;
 
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSAsync;
