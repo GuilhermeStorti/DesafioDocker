@@ -22,6 +22,7 @@ public class AwsConfig {
     @Value("${aws.config.access_key}")
     private String secretKey;
 
+    @Bean
     public AWSCredentials awsCredentials() {
         return new BasicAWSCredentials(accessKey, secretKey);
     }
@@ -38,9 +39,7 @@ public class AwsConfig {
 
     @Bean
     public AmazonSQS amazonSQS() {
-        return AmazonSQSClientBuilder.standard()
-                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials()))
-                .withRegion(Regions.US_EAST_1)
+        return AmazonSQSClientBuilder.standard().withRegion(Regions.US_EAST_1)
                 .build();
     }
 }

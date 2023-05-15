@@ -1,4 +1,7 @@
-#Function to create queues and dlq-queues
+#!/bin/bash
+
+apt install jq -y
+
 createQueue(){
 
   queueName=$1
@@ -27,4 +30,3 @@ createQueue(){
 }
 
 createQueue teste2
-
