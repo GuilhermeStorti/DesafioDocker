@@ -2,6 +2,8 @@ package br.com.storti.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "operation_type")
 public class OperationTypeModel extends BaseModel {

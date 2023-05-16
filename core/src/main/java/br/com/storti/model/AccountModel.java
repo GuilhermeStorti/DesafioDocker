@@ -17,7 +17,7 @@ public class AccountModel extends BaseModel {
     private Long id;
 
     @Column(name = "document_number")
-    private String documentNumber;
+    private Long documentNumber;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)

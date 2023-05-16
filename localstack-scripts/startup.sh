@@ -29,4 +29,4 @@ createQueue(){
   fi
 }
 
-createQueue teste2
+createQueue payment-queue payment-queue-dlq

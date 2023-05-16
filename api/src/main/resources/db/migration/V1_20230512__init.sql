@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS account (
     id_account serial primary key,
-    document_number text not null,
+    document_number bigint not null,
     status text not null,
     created_on TIMESTAMP NOT NULL,
     updated_on TIMESTAMP NULL
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS transaction (
    id_transaction serial primary key,
    id_operation_type int not null,
    id_account int not null,
-   amount int not null,
+   amount decimal not null,
    status text not null,
    created_on TIMESTAMP NOT NULL,
    updated_on TIMESTAMP NULL,

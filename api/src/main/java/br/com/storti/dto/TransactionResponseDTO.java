@@ -1,12 +1,11 @@
-package dto;
+package br.com.storti.dto;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class ErrorDTO {
+public class TransactionResponseDTO {
 
     private String message;
-    private int code;
 }

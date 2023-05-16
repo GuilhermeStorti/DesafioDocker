@@ -2,9 +2,9 @@ package br.com.storti.resource;
 
 import br.com.storti.exception.ServiceException;
 import br.com.storti.service.AccountService;
-import dto.AccountConsultResponseDTO;
-import dto.AccountCreateRequestDTO;
-import dto.AccountCreateResponseDTO;
+import br.com.storti.dto.AccountConsultResponseDTO;
+import br.com.storti.dto.AccountCreateRequestDTO;
+import br.com.storti.dto.AccountCreateResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/account")
+@RequestMapping("/accounts")
 public class AccountResource {
 
     private final AccountService accountService;

@@ -1,9 +1,9 @@
 package br.com.storti.mapper;
 
 import br.com.storti.model.AccountModel;
-import dto.AccountConsultResponseDTO;
-import dto.AccountCreateRequestDTO;
-import dto.AccountCreateResponseDTO;
+import br.com.storti.dto.AccountConsultResponseDTO;
+import br.com.storti.dto.AccountCreateRequestDTO;
+import br.com.storti.dto.AccountCreateResponseDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
