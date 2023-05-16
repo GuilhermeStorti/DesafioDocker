@@ -1,9 +1,9 @@
 package br.com.storti.resource;
 
 import br.com.storti.exception.ServiceException;
-import br.com.storti.service.TransactionService;
 import br.com.storti.dto.TransactionRequestDTO;
 import br.com.storti.dto.TransactionResponseDTO;
+import br.com.storti.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

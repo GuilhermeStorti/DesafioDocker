@@ -1,10 +1,10 @@
 package br.com.storti.resource;
 
 import br.com.storti.exception.ServiceException;
-import br.com.storti.service.AccountService;
 import br.com.storti.dto.AccountConsultResponseDTO;
 import br.com.storti.dto.AccountCreateRequestDTO;
 import br.com.storti.dto.AccountCreateResponseDTO;
+import br.com.storti.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
