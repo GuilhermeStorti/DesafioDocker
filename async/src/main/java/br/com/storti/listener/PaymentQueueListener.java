@@ -1,4 +1,4 @@
-package listener;
+package br.com.storti.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.aws.messaging.listener.annotation.SqsListener;
