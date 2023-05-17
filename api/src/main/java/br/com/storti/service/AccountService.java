@@ -1,5 +1,8 @@
 package br.com.storti.service;
 
+import br.com.caelum.stella.validation.CNPJValidator;
+import br.com.caelum.stella.validation.CPFValidator;
+import br.com.caelum.stella.validation.InvalidStateException;
 import br.com.storti.exception.ServiceException;
 import br.com.storti.mapper.AccountMapper;
 import br.com.storti.model.AccountModel;
@@ -23,10 +26,11 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
 
-
     public AccountCreateResponseDTO create(AccountCreateRequestDTO accountRequest) throws ServiceException {
 
         log.info("M create, account: {}", accountRequest);
+
+        validateDocument(accountRequest.getDocumentNumber());
 
         Optional<AccountModel> accountOptional =
                 accountRepository.findByDocumentNumberAndStatus(accountRequest.getDocumentNumber(), ACTIVE);
@@ -59,6 +63,25 @@ public class AccountService {
         AccountModel account = accountRepository.findByIdAndStatus(accountId, ACTIVE)
                 .orElseThrow(() -> new ServiceException("Account not found"));
 
-        return AccountMapper.INSTANCE.modelToConsultResponseDTO(accountRepository.save(account));
+        return AccountMapper.INSTANCE.modelToConsultResponseDTO(account);
+    }
+
+    private void validateDocument(Long documentNumber) throws ServiceException {
+
+        String documentString = String.valueOf(documentNumber);
+        if(documentString.length() < 11) {
+            throw new ServiceException("Document invalid");
+        }
+        try {
+            if (documentString.length() == 11) {
+                CPFValidator cpfValidator = new CPFValidator();
+                cpfValidator.assertValid(documentString);
+            } else {
+                CNPJValidator cnpjValidator = new CNPJValidator();
+                cnpjValidator.assertValid(documentString);
+            }
+        } catch (InvalidStateException ex) {
+            throw new ServiceException("Document invalid");
+        }
     }
 }

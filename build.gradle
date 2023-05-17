@@ -52,6 +52,9 @@ subprojects {
 
         runtimeOnly 'org.postgresql:postgresql'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+        testImplementation "org.junit.jupiter:junit-jupiter-api:5.9.3"
+        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.9.3"
     }
 }
 
@@ -70,7 +73,7 @@ project(':core') {
 
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
-        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
     }
 
     configurations {
@@ -89,6 +92,8 @@ project(':api') {
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter'
         implementation 'org.springframework.boot:spring-boot-starter-web:3.0.6'
+
+        implementation 'br.com.caelum.stella:caelum-stella-core:2.1.6'
 
         implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
 
@@ -137,4 +142,8 @@ project(':async') {
     }
 
     mainClassName = 'br.com.storti.App'
+}
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
 }
