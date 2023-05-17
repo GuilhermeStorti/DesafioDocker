@@ -1,6 +1,7 @@
 package br.com.storti.listener;
 
 import br.com.storti.TransactionNotFoundException;
+import br.com.storti.enums.TransactionStatusEnum;
 import br.com.storti.model.TransactionModel;
 import br.com.storti.repository.TransactionRepository;
 import br.com.storti.service.TransactionFactoryService;
@@ -29,6 +30,11 @@ public class PaymentQueueListener {
 
         TransactionModel transaction = transactionRepository.findById(transactionId)
                 .orElseThrow(() -> new TransactionNotFoundException("Transaction not found for id: " + transactionId));
+
+        if(transaction.getStatus() != TransactionStatusEnum.ASYNC_PROCESS) {
+            log.error("M paymentQueueListener, transactionId: {}, transactionStatus: {}, accountId: {}. Transaction not in ASYNC_PROCESS status."
+                    , transaction.getId(), transaction.getStatus(), transaction.getAccount().getId());
+        }
 
         TransactionPaymentAsyncService service = transactionFactoryService.getService(transaction.getOperationType());
 
