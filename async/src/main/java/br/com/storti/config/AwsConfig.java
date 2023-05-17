@@ -3,7 +3,10 @@ package br.com.storti.config;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.regions.Regions;
+import com.amazonaws.services.sns.AmazonSNS;
+import com.amazonaws.services.sns.AmazonSNSClientBuilder;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSAsync;
 import com.amazonaws.services.sqs.AmazonSQSAsyncClientBuilder;
@@ -16,15 +19,24 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AwsConfig {
 
-    @Value("${aws.config.access_key}")
+    @Value("${cloud.aws.credentials.accessKey}")
     private String accessKey;
 
-    @Value("${aws.config.access_key}")
+    @Value("${cloud.aws.credentials.secretKey}")
     private String secretKey;
 
     @Bean
     public AWSCredentials awsCredentials() {
         return new BasicAWSCredentials(accessKey, secretKey);
+    }
+
+    @Bean
+    public AmazonSNS amazonSNS() {
+        return AmazonSNSClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials()))
+                .withEndpointConfiguration(new AwsClientBuilder.
+                        EndpointConfiguration("http://localhost:4566", "us-east-1"))
+                .build();
     }
 
     @Bean

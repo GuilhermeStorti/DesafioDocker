@@ -30,3 +30,5 @@ createQueue(){
 }
 
 createQueue payment-queue payment-queue-dlq
+
+awslocal sns create-topic --name clientNotification | jq .TopicArn | tr -d '"'
