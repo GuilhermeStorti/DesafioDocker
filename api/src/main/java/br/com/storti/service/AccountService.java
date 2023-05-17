@@ -36,6 +36,7 @@ public class AccountService {
 
         AccountModel model = AccountMapper.INSTANCE.requestDTOToModel(accountRequest);
         model.setStatus(ACTIVE);
+        model.setBalance(0D);
 
         return AccountMapper.INSTANCE.modelToResponseDTO(accountRepository.save(model));
     }

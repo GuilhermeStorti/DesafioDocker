@@ -23,6 +23,9 @@ public class AccountModel extends BaseModel {
     @Enumerated(EnumType.STRING)
     private AccountStatusEnum status;
 
+    @Column(name = "balance")
+    private Double balance;
+
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<TransactionModel> transactions;
 }

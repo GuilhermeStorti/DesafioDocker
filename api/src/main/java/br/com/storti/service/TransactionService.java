@@ -2,6 +2,7 @@ package br.com.storti.service;
 
 import br.com.storti.enums.AccountStatusEnum;
 import br.com.storti.enums.TransactionStatusEnum;
+import br.com.storti.exception.BalanceException;
 import br.com.storti.exception.ServiceException;
 import br.com.storti.model.AccountModel;
 import br.com.storti.model.OperationTypeModel;
@@ -29,7 +30,7 @@ public class TransactionService {
     private final OperationTypeRepository operationTypeRepository;
     private final AmazonSQSService amazonSQSService;
 
-    public TransactionResponseDTO create(TransactionRequestDTO transactionRequestDTO) throws ServiceException {
+    public TransactionResponseDTO create(TransactionRequestDTO transactionRequestDTO) throws ServiceException, BalanceException {
 
         //TODO tratar transacao de valor negativo
 
@@ -48,9 +49,21 @@ public class TransactionService {
                 .status(TransactionStatusEnum.ASYNC_PROCESS)
                 .build();
 
-        TransactionModel response = transactionRepository.save(transactionModel);
+        transactionModel = transactionRepository.save(transactionModel);
 
-        amazonSQSService.sendMessage(paymentQueueUrl, response.getId());
+        if(operation.getId() == 4) {
+            account.setBalance(account.getBalance() + transactionModel.getAmount());
+            accountRepository.save(account);
+        } else if(account.getBalance() >= transactionModel.getAmount()) {
+            account.setBalance(account.getBalance() - transactionModel.getAmount());
+            accountRepository.save(account);
+        } else {
+            transactionModel.setStatus(TransactionStatusEnum.ERROR);
+            transactionRepository.save(transactionModel);
+            throw new BalanceException("Insufficient balance.");
+        }
+
+        amazonSQSService.sendMessage(paymentQueueUrl, transactionModel.getId());
 
         return TransactionResponseDTO.builder().message("Transaction in process").build();
     }

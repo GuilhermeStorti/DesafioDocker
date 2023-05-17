@@ -1,5 +1,6 @@
 package br.com.storti.resource;
 
+import br.com.storti.exception.BalanceException;
 import br.com.storti.exception.ServiceException;
 import br.com.storti.dto.TransactionRequestDTO;
 import br.com.storti.dto.TransactionResponseDTO;
@@ -22,7 +23,7 @@ public class TransactionResource {
     private final TransactionService transactionService;
 
     @PostMapping
-    public ResponseEntity<TransactionResponseDTO> create(@RequestBody TransactionRequestDTO transactionRequestDTO) throws ServiceException {
+    public ResponseEntity<TransactionResponseDTO> create(@RequestBody TransactionRequestDTO transactionRequestDTO) throws ServiceException, BalanceException {
 
         log.info("M create, transactionRequestDTO: {}", transactionRequestDTO);
         return new ResponseEntity<>(transactionService.create(transactionRequestDTO), HttpStatus.CREATED);

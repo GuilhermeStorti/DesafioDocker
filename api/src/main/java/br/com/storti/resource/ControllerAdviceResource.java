@@ -1,5 +1,6 @@
 package br.com.storti.resource;
 
+import br.com.storti.exception.BalanceException;
 import br.com.storti.exception.ServiceException;
 import br.com.storti.dto.ErrorDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,15 @@ public class ControllerAdviceResource {
 
         log.error("M serviceError, error message: {}", e.getMessage());
         ErrorDTO response = ErrorDTO.builder().message(e.getMessage()).code(100).build();
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({BalanceException.class})
+    @ResponseBody
+    public ResponseEntity<ErrorDTO> serviceError(BalanceException e) {
+
+        log.error("M serviceError, error message: {}", e.getMessage());
+        ErrorDTO response = ErrorDTO.builder().message(e.getMessage()).code(101).build();
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }
