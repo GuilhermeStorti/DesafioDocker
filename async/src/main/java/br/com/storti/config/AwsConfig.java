@@ -25,6 +25,12 @@ public class AwsConfig {
     @Value("${cloud.aws.credentials.secretKey}")
     private String secretKey;
 
+    @Value("${cloud.aws.server}")
+    private String server;
+
+    @Value("${cloud.aws.region.static}")
+    private String region;
+
     @Bean
     public AWSCredentials awsCredentials() {
         return new BasicAWSCredentials(accessKey, secretKey);
@@ -33,25 +39,25 @@ public class AwsConfig {
     @Bean
     public AmazonSNS amazonSNS() {
         return AmazonSNSClientBuilder.standard()
+                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(server, region))
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials()))
-                .withEndpointConfiguration(new AwsClientBuilder.
-                        EndpointConfiguration("http://localhost:4566", "us-east-1"))
                 .build();
     }
 
     @Bean
     public AmazonSQSAsync amazonSQSAsync() {
         AmazonSQSAsync sqsAsync = AmazonSQSAsyncClientBuilder.standard()
+                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(server, region))
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials()))
-                .withRegion(Regions.US_EAST_1)
                 .build();
         return new AmazonSQSBufferedAsyncClient(sqsAsync);
-
     }
 
     @Bean
     public AmazonSQS amazonSQS() {
-        return AmazonSQSClientBuilder.standard().withRegion(Regions.US_EAST_1)
+        return AmazonSQSClientBuilder.standard()
+                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(server, region))
+                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials()))
                 .build();
     }
 }
