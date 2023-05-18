@@ -45,7 +45,6 @@ services:
     depends_on:
       - localstack
       - postgres
-      - api
     networks:
       - desafio-net
 volumes:
