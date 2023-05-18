@@ -2,6 +2,7 @@ package br.com.storti.listener;
 
 import br.com.storti.TransactionNotFoundException;
 import br.com.storti.enums.TransactionStatusEnum;
+import br.com.storti.exception.AsyncPaymentException;
 import br.com.storti.model.TransactionModel;
 import br.com.storti.repository.TransactionRepository;
 import br.com.storti.service.TransactionFactoryService;
@@ -23,10 +24,8 @@ public class PaymentQueueListener {
     private final TransactionFactoryService transactionFactoryService;
 
     @SqsListener("${aws.sqs.payment-queue.url}")
-    public void paymentQueueListener(Long transactionId) throws TransactionNotFoundException {
+    public void paymentQueueListener(Long transactionId) throws TransactionNotFoundException, AsyncPaymentException {
         log.info("M paymentQueueListener, transactionId: {}. Message received", transactionId);
-
-        //TODO Resolver bug na consulta account não está carregando
 
         TransactionModel transaction = transactionRepository.findById(transactionId)
                 .orElseThrow(() -> new TransactionNotFoundException("Transaction not found for id: " + transactionId));
@@ -34,6 +33,7 @@ public class PaymentQueueListener {
         if(transaction.getStatus() != TransactionStatusEnum.ASYNC_PROCESS) {
             log.error("M paymentQueueListener, transactionId: {}, transactionStatus: {}, accountId: {}. Transaction not in ASYNC_PROCESS status."
                     , transaction.getId(), transaction.getStatus(), transaction.getAccount().getId());
+            throw new AsyncPaymentException("Transaction not in ASYNC_PROCESS status");
         }
 
         TransactionPaymentAsyncService service = transactionFactoryService.getService(transaction.getOperationType());
