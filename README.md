@@ -7,6 +7,7 @@ Este projeto utiliza Java com Spring Boot, banco de dados PostgresSQL e para sim
 Requisitos para rodar o sistema:
 
  - [Docker](https://docs.docker.com/get-docker/)
+ - [Docker-compose](https://docs.docker.com/compose/install/)
  - [SdkMan](https://sdkman.io/install)  para facilitar a configuração
  - [Java 17](https://sdkman.io/usage)
  - [Gradle](https://sdkman.io/usage)
@@ -49,3 +50,7 @@ docker-compose up
 ```
 
 Para a execução do projeto no IntelliJ não é necessária a configuração de profile.
+
+Nos recursos da AWS, se faz necessária a configuração de uma conta com a accessKey=localstack, e secretKey=localstack
+
+Para facilitar o uso do localstack é recomendado a utilização da lib [awscli-local](https://github.com/localstack/awscli-local)
