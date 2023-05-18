@@ -122,9 +122,7 @@ project(':api') {
         }
     }
 
-    bootRepackage { executable = true }
-
-    mainClassName = 'br.com.storti.App'
+    mainClassName = 'br.com.storti.ApiApp'
 }
 
 project(':async') {
@@ -151,9 +149,10 @@ project(':async') {
         }
     }
 
-    bootRepackage { executable = true }
+    mainClassName = 'br.com.storti.AsyncApp'
 
-    mainClassName = 'br.com.storti.App'
+}
 
-
+bootJar {
+    enabled = false
 }
