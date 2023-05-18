@@ -16,6 +16,12 @@ Requisitos para rodar o sistema:
 
 Um sistema transacional dividido dois micro serviços, uma API e um ASYNC.
 
+### Desenho do projeto
+![diagrama](https://i.imgur.com/cvFozoB.png)
+
+### DER
+![DER](https://i.imgur.com/8A8P7Vx.png)
+
 ### Responsabilidade
  - **API**:  crud das contas e cadastro de novas transações.
  - **ASYNC**:  efetivação das transações e notificações ao usuário.
