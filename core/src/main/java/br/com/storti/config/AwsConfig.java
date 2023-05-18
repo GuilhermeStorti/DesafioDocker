@@ -4,7 +4,6 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sns.AmazonSNSClientBuilder;
 import com.amazonaws.services.sqs.AmazonSQS;
@@ -37,14 +36,6 @@ public class AwsConfig {
     }
 
     @Bean
-    public AmazonSNS amazonSNS() {
-        return AmazonSNSClientBuilder.standard()
-                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(server, region))
-                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials()))
-                .build();
-    }
-
-    @Bean
     public AmazonSQSAsync amazonSQSAsync() {
         AmazonSQSAsync sqsAsync = AmazonSQSAsyncClientBuilder.standard()
                 .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(server, region))
@@ -56,6 +47,14 @@ public class AwsConfig {
     @Bean
     public AmazonSQS amazonSQS() {
         return AmazonSQSClientBuilder.standard()
+                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(server, region))
+                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials()))
+                .build();
+    }
+
+    @Bean
+    public AmazonSNS amazonSNS() {
+        return AmazonSNSClientBuilder.standard()
                 .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(server, region))
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials()))
                 .build();
