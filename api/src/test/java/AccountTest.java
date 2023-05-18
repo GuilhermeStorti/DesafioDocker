@@ -1,4 +1,3 @@
-import br.com.caelum.stella.validation.AcceptAnyValidator;
 import br.com.storti.dto.AccountConsultResponseDTO;
 import br.com.storti.dto.AccountCreateRequestDTO;
 import br.com.storti.dto.AccountCreateResponseDTO;

@@ -32,9 +32,9 @@ public class TransactionService {
 
     public TransactionResponseDTO create(TransactionRequestDTO transactionRequestDTO) throws ServiceException, BalanceException {
 
-        //TODO tratar transacao de valor negativo
-
         log.info("M create, transactionRequestDTO: {}", transactionRequestDTO);
+
+        validateTransaction(transactionRequestDTO);
 
         AccountModel account = accountRepository.findByIdAndStatus(transactionRequestDTO.getAccountId(), AccountStatusEnum.ACTIVE)
                 .orElseThrow(() -> new ServiceException("Account not found or not active"));
@@ -66,5 +66,12 @@ public class TransactionService {
         amazonSQSService.sendMessage(paymentQueueUrl, transactionModel.getId());
 
         return TransactionResponseDTO.builder().message("Transaction in process").build();
+    }
+
+    private void validateTransaction(TransactionRequestDTO transactionRequestDTO) throws ServiceException {
+
+        if(transactionRequestDTO.getAmount() == null || transactionRequestDTO.getAmount() == 0D) {
+            throw new ServiceException("Transaction amount is invalid");
+        }
     }
 }
