@@ -25,17 +25,29 @@ services:
       - '5432:5432'
     networks:
       - desafio-net
-#  app:
-#    build:
-#      context: .
-#      dockerfile: ApiDockerfile
-#    ports:
-#      - '8080:8080'
-#    depends_on:
-#      - localstack
-#      - postgres
-#    networks:
-#      - desafio-net
+  api:
+    build:
+      context: .
+      dockerfile: ApiDockerfile
+    ports:
+      - '8080:8080'
+    depends_on:
+      - localstack
+      - postgres
+    networks:
+      - desafio-net
+  async:
+    build:
+      context: .
+      dockerfile: AsyncDockerfile
+    ports:
+      - '8081:8081'
+    depends_on:
+      - localstack
+      - postgres
+      - api
+    networks:
+      - desafio-net
 volumes:
   postgres:
     driver: local
