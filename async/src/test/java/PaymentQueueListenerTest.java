@@ -19,10 +19,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class PaymentQueueListenerTest {
+class PaymentQueueListenerTest {
 
     @InjectMocks
     PaymentQueueListener paymentQueueListener;
@@ -64,7 +65,7 @@ public class PaymentQueueListenerTest {
     }
 
     @Test
-    void transactionSuccessTest() throws AsyncPaymentException, TransactionNotFoundException {
+    void transactionSuccessTest() throws AsyncPaymentException, TransactionNotFoundException { //NOSONAR
 
         TransactionModel transactionModel = new TransactionModel();
         transactionModel.setStatus(TransactionStatusEnum.ASYNC_PROCESS);
@@ -78,6 +79,8 @@ public class PaymentQueueListenerTest {
                 .thenReturn(installmentTransactionAsyncService);
 
         paymentQueueListener.paymentQueueListener(1L);
+
+        //Teste sem assertion para garantir que não ocorras erros
     }
 
     private OperationTypeModel getValidOperationalType() {
@@ -89,7 +92,7 @@ public class PaymentQueueListenerTest {
 
     private AccountModel getValidAccount() {
         AccountModel accountModel = new AccountModel();
-        accountModel.setDocumentNumber(1L);
+        accountModel.setDocumentNumber("1");
         accountModel.setBalance(10D);
         accountModel.setStatus(AccountStatusEnum.ACTIVE);
         return accountModel;

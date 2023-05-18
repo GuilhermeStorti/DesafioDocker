@@ -10,5 +10,5 @@ public class AccountConsultResponseDTO {
     private Long id;
 
     @JsonProperty("document_number")
-    private Long documentNumber;
+    private String documentNumber;
 }

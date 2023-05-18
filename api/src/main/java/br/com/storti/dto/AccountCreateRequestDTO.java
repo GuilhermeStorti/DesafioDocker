@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 public class AccountCreateRequestDTO {
 
     @JsonProperty("document_number")
-    private Long documentNumber;
+    private String documentNumber;
 }

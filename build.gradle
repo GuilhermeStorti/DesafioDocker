@@ -10,10 +10,6 @@ repositories {
     mavenCentral()
 }
 
-bootJar {
-    enabled = false
-}
-
 compileJava {
     options.compilerArgs += [
             '-Amapstruct.defaultComponentModel=spring'
@@ -126,7 +122,7 @@ project(':api') {
         }
     }
 
-    mainClassName = 'br.com.storti.App'
+    mainClassName = 'br.com.storti.ApiApp'
 }
 
 project(':async') {
@@ -153,7 +149,10 @@ project(':async') {
         }
     }
 
-    mainClassName = 'br.com.storti.App'
+    mainClassName = 'br.com.storti.AsyncApp'
 
+}
 
+bootJar {
+    enabled = false
 }

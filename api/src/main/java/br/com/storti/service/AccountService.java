@@ -66,9 +66,7 @@ public class AccountService {
         return AccountMapper.INSTANCE.modelToConsultResponseDTO(account);
     }
 
-    private void validateDocument(Long documentNumber) throws ServiceException {
-
-        String documentString = String.valueOf(documentNumber);
+    private void validateDocument(String documentString) throws ServiceException {
         if(documentString.length() < 11) {
             throw new ServiceException("Document invalid");
         }

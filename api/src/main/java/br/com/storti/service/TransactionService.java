@@ -70,7 +70,7 @@ public class TransactionService {
 
     private void validateTransaction(TransactionRequestDTO transactionRequestDTO) throws ServiceException {
 
-        if(transactionRequestDTO.getAmount() == null || transactionRequestDTO.getAmount() == 0D) {
+        if(transactionRequestDTO.getAmount() == null || transactionRequestDTO.getAmount() <= 0D) {
             throw new ServiceException("Transaction amount is invalid");
         }
     }
