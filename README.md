@@ -51,6 +51,6 @@ docker-compose up
 
 Para a execução do projeto no IntelliJ não é necessária a configuração de profile.
 
-Nos recursos da AWS, se faz necessária a configuração de uma conta com a accessKey=localstack, e secretKey=localstack
+Nos recursos da AWS, se faz necessária o [awscli](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjTnO2vyP_-AhV6qJUCHR4-CRcQFnoECA8QAQ&url=https%3A%2F%2Fdocs.aws.amazon.com%2Fcli%2Flatest%2Fuserguide%2Fgetting-started-install.html&usg=AOvVaw1ZNkJVGdQLM19jBI6SoTop) e  a configuração de uma conta com a credênciais accessKey=localstack, e secretKey=localstack
 
 Para facilitar o uso do localstack é recomendado a utilização da lib [awscli-local](https://github.com/localstack/awscli-local)
