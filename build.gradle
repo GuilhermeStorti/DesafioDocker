@@ -56,6 +56,10 @@ subprojects {
         testImplementation "org.junit.jupiter:junit-jupiter-api:5.9.3"
         testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.9.3"
     }
+
+    test {
+        useJUnitPlatform()
+    }
 }
 
 project(':core') {
@@ -142,8 +146,4 @@ project(':async') {
     }
 
     mainClassName = 'br.com.storti.App'
-}
-
-tasks.named('test', Test) {
-    useJUnitPlatform()
 }

@@ -37,7 +37,7 @@ public class PaymentQueueListenerTest {
     InstallmentTransactionAsyncServiceImpl installmentTransactionAsyncService;
 
     @Test
-    void transactionNotFoundExceptionTest() throws TransactionNotFoundException {
+    void transactionNotFoundExceptionTest() {
 
         when(transactionRepository.findById(1L))
                 .thenReturn(Optional.empty());
