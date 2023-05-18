@@ -1,4 +1,7 @@
-#Function to create queues and dlq-queues
+#!/bin/bash
+
+apt install jq -y
+
 createQueue(){
 
   queueName=$1
@@ -26,4 +29,6 @@ createQueue(){
   fi
 }
 
-createQueue teste2
+createQueue payment-queue payment-queue-dlq
+
+awslocal sns create-topic --name clientNotification | jq .TopicArn | tr -d '"'

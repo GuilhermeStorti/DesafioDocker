@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+  localstack:
+    image: localstack/localstack:2.0.2
+    environment:
+      - SERVICES=sqs,sns
+      - DEFAULT_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=localstack
+      - AWS_SECRET_ACCESS_KEY=localstack
+    ports:
+      - "4566:4566"
+    volumes:
+      - "./localstack-scripts:/etc/localstack/init/ready.d"
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - desafio-net
+  postgres:
+    image: postgres:15.3
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - desafio-net
+#  app:
+#    build:
+#      context: .
+#      dockerfile: ApiDockerfile
+#    ports:
+#      - '8080:8080'
+#    depends_on:
+#      - localstack
+#      - postgres
+#    networks:
+#      - desafio-net
+volumes:
+  postgres:
+    driver: local
+networks:
+  desafio-net:
+    driver: bridge
