@@ -85,6 +85,14 @@ project(':core') {
             extendsFrom annotationProcessor
         }
     }
+
+    bootJar {
+        enabled = false
+    }
+
+    jar {
+        enabled = true
+    }
 }
 
 project(':api') {
@@ -146,4 +154,6 @@ project(':async') {
     }
 
     mainClassName = 'br.com.storti.App'
+
+
 }
