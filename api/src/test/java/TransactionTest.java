@@ -55,7 +55,7 @@ public class TransactionTest {
     void createTransactionZeroAmountTest() throws ServiceException, BalanceException {
 
         TransactionRequestDTO requestDTO = new TransactionRequestDTO();
-        requestDTO.setAmount(0D);
+        requestDTO.setAmount(-2D);
         Exception exception = assertThrows(ServiceException.class, () ->
                 transactionService.create(requestDTO));
         Assertions.assertEquals("Transaction amount is invalid", exception.getMessage());
@@ -149,7 +149,7 @@ public class TransactionTest {
 
     private AccountModel getValidAccount() {
         AccountModel accountModel = new AccountModel();
-        accountModel.setDocumentNumber(1L);
+        accountModel.setDocumentNumber("1");
         accountModel.setBalance(10D);
         accountModel.setStatus(AccountStatusEnum.ACTIVE);
         return accountModel;

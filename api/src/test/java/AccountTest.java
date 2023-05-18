@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class AccountTest {
 
-    private static final long DOCUMENT_NUMBER = 39773240800L;
+    private static final String DOCUMENT_NUMBER = "39773240800";
 
     @InjectMocks
     private AccountService accountService;
@@ -66,7 +66,7 @@ class AccountTest {
     @Test
     void createAccountDocumentInvalidTest() {
         Exception exception = assertThrows(ServiceException.class, () ->
-                accountService.create(new AccountCreateRequestDTO(11111111111L)));
+                accountService.create(new AccountCreateRequestDTO("11111111111L")));
         Assertions.assertEquals("Document invalid", exception.getMessage());
     }
 

@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface AccountRepository extends JpaRepository<AccountModel, Long> {
 
-    Optional<AccountModel> findByDocumentNumberAndStatus(Long documentNumber, AccountStatusEnum status);
+    Optional<AccountModel> findByDocumentNumberAndStatus(String documentNumber, AccountStatusEnum status);
 
     Optional<AccountModel> findByIdAndStatus(Long id, AccountStatusEnum status);
 }

@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS account (
     id_account serial primary key,
-    document_number bigint not null,
+    document_number text not null,
     status text not null,
     balance decimal not null,
     created_on TIMESTAMP NOT NULL,
